@@ -10,7 +10,7 @@ const theme = createTheme();
 
 function PrivateRoute({ children }) {
   const { user } = useContext(AuthContext);
-  return user ? children : <Navigate to="/login"/>;
+  return user ? children : <Navigate to="/login" replace />;
 }
 
 export default function App() {

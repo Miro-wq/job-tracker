@@ -1,16 +1,18 @@
-import { createContext, useState, useEffect } from "react";
+import React, { createContext, useState } from "react";
 import { jwtDecode } from "jwt-decode";
 import api from "../api/client";
 
 export const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState(null);
-
-  useEffect(() => {
+  const [user, setUser] = useState(() => {
     const t = localStorage.getItem("token");
-    if (t) setUser(jwtDecode(t));
-  }, []);
+    try {
+      return t ? jwtDecode(t) : null;
+    } catch {
+      return null;
+    }
+  });
 
   const login = async (email, pass) => {
     const { data } = await api.post("/login", { email, password: pass });
