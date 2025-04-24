@@ -136,13 +136,19 @@ export default function Home() {
             ["Rejected", counts.rejected, "error"],
             ["Ghosted", counts.ghosted, "warning"],
           ].map(([label, val, color]) => (
-            <Grid item xs={6} md={3} key={label}>
-              <Card variant="outlined">
+            <Grid size={{ xs: 6, md: 3 }} key={label}>
+              <Card
+                variant="outlined"
+                sx={{
+                  border: 2,
+                  borderColor: `${color}.main`,
+                }}
+              >
                 <CardContent>
                   <Typography color={color} variant="subtitle1">
                     {label}
                   </Typography>
-                  <Typography variant="h4">{val}</Typography>
+                  <Typography variant="h5">{val}</Typography>
                 </CardContent>
               </Card>
             </Grid>
@@ -153,8 +159,8 @@ export default function Home() {
           <Typography variant="h6" gutterBottom>
             Add New Job
           </Typography>
-          <Grid container spacing={2}>
-            <Grid item xs={12} md={4}>
+          <Grid container spacing={2} sx={{ flexDirection: "column" }}>
+            <Grid>
               <TextField
                 label="Job Title"
                 fullWidth
@@ -162,7 +168,7 @@ export default function Home() {
                 onChange={(e) => setForm({ ...form, title: e.target.value })}
               />
             </Grid>
-            <Grid item xs={12} md={4}>
+            <Grid>
               <TextField
                 label="Company Name"
                 fullWidth
@@ -170,7 +176,7 @@ export default function Home() {
                 onChange={(e) => setForm({ ...form, company: e.target.value })}
               />
             </Grid>
-            <Grid item xs={12} md={4}>
+            <Grid>
               <TextField
                 label="Job URL"
                 fullWidth
@@ -178,11 +184,16 @@ export default function Home() {
                 onChange={(e) => setForm({ ...form, url: e.target.value })}
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid sx={{ display: "flex", justifyContent: "flex-end" }}>
               <Button variant="contained" onClick={addJob}>
                 Save Job
               </Button>
-              <Button onClick={exportPDF} sx={{ ml: 2 }}>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={exportPDF}
+                sx={{ ml: 2 }}
+              >
                 Export PDF
               </Button>
             </Grid>
@@ -211,7 +222,7 @@ export default function Home() {
         ) : (
           <Grid container spacing={2}>
             {filtered.map((job) => (
-              <Grid item xs={12} md={6} lg={4} key={job._id}>
+              <Grid size={{ xs: 12, md: 4 }} key={job._id}>
                 <Card variant="outlined">
                   <CardContent>
                     <Typography variant="h6">{job.title}</Typography>
@@ -234,24 +245,27 @@ export default function Home() {
                         {job.url}
                       </a>
                     </Typography>
-                    <Stack direction="row" spacing={1}>
-                      {STATUS.slice(1).map((st) => (
-                        <Chip
-                          key={st}
-                          label={st}
-                          variant={job.status === st ? "filled" : "outlined"}
-                          color={
-                            job.status === st
-                              ? st === "applied"
-                                ? "success"
-                                : st === "rejected"
-                                ? "error"
-                                : "warning"
-                              : "default"
-                          }
-                          onClick={() => updateStatus(job._id, st)}
-                        />
-                      ))}
+                    <Stack direction="row" spacing={1} sx={{ flexWrap: "wrap", gap: 1, justifyContent: "flex-end" }}>
+                      {STATUS.slice(1).map((st) => {
+                        const statusColor = {
+                          saved: "primary",
+                          applied: "success",
+                          rejected: "error",
+                          ghosted: "warning",
+                        };
+                        const chipColor =
+                          job.status === st ? statusColor[st] : "default";
+
+                        return (
+                          <Chip
+                            key={st}
+                            label={st.charAt(0).toUpperCase() + st.slice(1)}
+                            variant={job.status === st ? "filled" : "outlined"}
+                            color={chipColor}
+                            onClick={() => updateStatus(job._id, st)}
+                          />
+                        );
+                      })}
                     </Stack>
                   </CardContent>
                 </Card>
