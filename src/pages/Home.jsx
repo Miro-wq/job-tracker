@@ -1,7 +1,5 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import {
-  AppBar,
-  Toolbar,
   Typography,
   Button,
   Container,
@@ -15,16 +13,13 @@ import {
   Chip,
   Box,
 } from "@mui/material";
-import LogoutIcon from "@mui/icons-material/Logout";
 import api from "../api/client";
-import { AuthContext } from "../context/AuthContext";
 import { Snackbar, Alert } from "@mui/material";
 import jsPDF from "jspdf";
 
 const STATUS = ["all", "saved", "applied", "rejected", "ghosted"];
 
 export default function Home() {
-  const { logout } = useContext(AuthContext);
 
   const [jobs, setJobs] = useState([]);
   const [form, setForm] = useState({ title: "", company: "", url: "" });
@@ -117,17 +112,6 @@ export default function Home() {
 
   return (
     <>
-      <AppBar position="static">
-        <Toolbar>
-          <Typography variant="h6" sx={{ flexGrow: 1 }}>
-            JobTrackr
-          </Typography>
-          <Button color="inherit" startIcon={<LogoutIcon />} onClick={logout}>
-            Logout
-          </Button>
-        </Toolbar>
-      </AppBar>
-
       <Container sx={{ mt: 4, mb: 4 }}>
         <Grid container spacing={2} sx={{ mb: 4 }}>
           {[
@@ -142,6 +126,7 @@ export default function Home() {
                 sx={{
                   border: 2,
                   borderColor: `${color}.main`,
+                  borderRadius: 3,
                 }}
               >
                 <CardContent>
@@ -155,7 +140,7 @@ export default function Home() {
           ))}
         </Grid>
 
-        <Card variant="outlined" sx={{ p: 2, mb: 4 }}>
+        <Card variant="outlined" sx={{ p: 2, mb: 4, borderRadius: 3 }}>
           <Typography variant="h6" gutterBottom>
             Add New Job
           </Typography>
@@ -185,7 +170,7 @@ export default function Home() {
               />
             </Grid>
             <Grid sx={{ display: "flex", justifyContent: "flex-end" }}>
-              <Button variant="contained" onClick={addJob}>
+              <Button variant="contained" color="primary" onClick={addJob}>
                 Save Job
               </Button>
               <Button
@@ -223,7 +208,7 @@ export default function Home() {
           <Grid container spacing={2}>
             {filtered.map((job) => (
               <Grid size={{ xs: 12, md: 4 }} key={job._id}>
-                <Card variant="outlined">
+                <Card variant="outlined" sx={{ borderRadius: 3 }}> 
                   <CardContent>
                     <Typography variant="h6">{job.title}</Typography>
                     <Typography variant="subtitle2" gutterBottom>
