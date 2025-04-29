@@ -9,6 +9,7 @@ import {
   Button
 } from '@mui/material';
 import LogoutIcon from '@mui/icons-material/Logout';
+import UserDisplay from './components/UserDisplay';
 
 import { AuthProvider, AuthContext } from './context/AuthContext';
 import Register from './pages/Register';
@@ -30,12 +31,15 @@ function PrivateRoute({ children }) {
 
 function AppLayout() {
   const { mode } = useContext(CustomThemeContext);
-  const { logout } = useContext(AuthContext);
+  const { user, logout } = useContext(AuthContext);
 
   const theme = useMemo(
     () => (mode === 'light' ? lightTheme : darkTheme),
     [mode]
   );
+
+  const raw = user?.email?.split('@')[0] ?? '';
+  const username = raw.split('_')[0];
 
   return (
     <ThemeProvider theme={theme}>
@@ -44,8 +48,10 @@ function AppLayout() {
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6" sx={{ flexGrow: 1 }}>
-            JobTrackr
+            JobTracker
           </Typography>
+
+          {user && <UserDisplay username={username} sx={{ mr: 2 }} />}
 
           <Button
             color="primary"
@@ -53,11 +59,11 @@ function AppLayout() {
             startIcon={<LogoutIcon />}
             onClick={logout}
             sx={{
-              textTransform: 'none',
-              mr: 1
+              borderRadius: 10,
+              justifyContent: 'flex-end',
+              padding: "6px 12px",
             }}
           >
-            Logout
           </Button>
 
           <ThemeToggleButton />
@@ -81,7 +87,6 @@ function AppLayout() {
     </ThemeProvider>
   );
 }
-
 export default function App() {
   return (
     <CustomThemeProvider>
