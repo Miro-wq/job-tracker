@@ -5,6 +5,7 @@ const { connectDB } = require('./utils/db')
 const User = require('./models/User')
 
 exports.handler = async (event, context) => {
+  console.log("▶️ JWT_SECRET=", process.env.JWT_SECRET);
   context.callbackWaitsForEmptyEventLoop = false
   await connectDB()
 
