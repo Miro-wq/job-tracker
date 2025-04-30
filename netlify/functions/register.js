@@ -15,13 +15,13 @@ exports.handler = async (event, context) => {
   try {
     const { email, password } = JSON.parse(event.body)
     if (!email || !password) {
-      return { statusCode: 400, body: JSON.stringify({ error: 'Email și parolă necesare' }) }
+      return { statusCode: 400, body: JSON.stringify({ error: 'Password and email are required' }) }
     }
 
     //verifica dacă user există deja
     const existing = await User.findOne({ email })
     if (existing) {
-      return { statusCode: 409, body: JSON.stringify({ error: 'User deja înregistrat' }) }
+      return { statusCode: 409, body: JSON.stringify({ error: 'User already exists' }) }
     }
 
     //hash parola
@@ -37,6 +37,6 @@ exports.handler = async (event, context) => {
     }
   } catch (err) {
     console.error(err)
-    return { statusCode: 500, body: JSON.stringify({ error: 'Eroare la înregistrare' }) }
+    return { statusCode: 500, body: JSON.stringify({ error: 'Registration error' }) }
   }
 }

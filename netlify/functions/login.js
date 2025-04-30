@@ -15,17 +15,17 @@ exports.handler = async (event, context) => {
   try {
     const { email, password } = JSON.parse(event.body)
     if (!email || !password) {
-      return { statusCode: 400, body: JSON.stringify({ error: 'Email și parolă necesare' }) }
+      return { statusCode: 400, body: JSON.stringify({ error: 'Password and email are required' }) }
     }
 
     const user = await User.findOne({ email })
     if (!user) {
-      return { statusCode: 401, body: JSON.stringify({ error: 'Credențiale invalide' }) }
+      return { statusCode: 401, body: JSON.stringify({ error: 'Invalid credentials' }) }
     }
 
     const isMatch = await bcrypt.compare(password, user.password)
     if (!isMatch) {
-      return { statusCode: 401, body: JSON.stringify({ error: 'Credențiale invalide' }) }
+      return { statusCode: 401, body: JSON.stringify({ error: 'Invalid credentials' }) }
     }
 
     const token = jwt.sign(
@@ -40,6 +40,6 @@ exports.handler = async (event, context) => {
     }
   } catch (err) {
     console.error(err)
-    return { statusCode: 500, body: JSON.stringify({ error: 'Eroare la autentificare' }) }
+    return { statusCode: 500, body: JSON.stringify({ error: 'Authentication error' }) }
   }
 }

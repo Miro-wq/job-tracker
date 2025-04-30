@@ -55,7 +55,7 @@ function AppLayout() {
                 JobTracker
               </Typography>
             </Box>
-            <Box sx={{ height: '32px', borderRadius: '32px', overflow: 'hidden' }}>
+            <Box sx={{ height: '32px'}}>
               <img
                 src={jobTrackerIcon}
                 alt="JT"
