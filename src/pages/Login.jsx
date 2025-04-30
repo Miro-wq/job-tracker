@@ -25,14 +25,14 @@ export default function Login() {
       await login(email, password);
       navigate("/");
     } catch (err) {
-      setError(err.response?.data?.error || "Eroare la autentificare");
+      setError(err.response?.data?.error || "Authentication error");
     }
   };
 
   return (
     <Container maxWidth="xs" sx={{ mt: 8 }}>
       <Typography variant="h4" gutterBottom textAlign="center">
-        Autentifică-te
+        Login
       </Typography>
 
       {error && (
@@ -53,7 +53,7 @@ export default function Login() {
         />
 
         <TextField
-          label="Parolă"
+          label="Password"
           type="password"
           required
           fullWidth
@@ -63,14 +63,14 @@ export default function Login() {
         />
 
         <Button type="submit" variant="contained" fullWidth sx={{ mt: 2 }}>
-          Autentifică-te
+          Login
         </Button>
       </form>
 
       <Typography variant="body2" align="center" sx={{ mt: 2 }}>
-        Nu ai cont?{" "}
+        Don't have an account?{" "}
         <Link component={RouterLink} to="/register">
-          Înregistrează-te
+          Sign up
         </Link>
       </Typography>
     </Container>

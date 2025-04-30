@@ -26,14 +26,14 @@ export default function Register() {
       await register(email, password);
       navigate("/");
     } catch (err) {
-      setError(err.response?.data?.error || "Eroare la înregistrare");
+      setError(err.response?.data?.error || "Registration error");
     }
   };
 
   return (
     <Container maxWidth="xs" sx={{ mt: 8 }}>
       <Typography variant="h4" gutterBottom textAlign="center">
-        Înregistrează-te
+        Sign up
       </Typography>
 
       {error && (
@@ -54,7 +54,7 @@ export default function Register() {
         />
 
         <TextField
-          label="Parolă"
+          label="Password"
           type="password"
           required
           fullWidth
@@ -63,24 +63,24 @@ export default function Register() {
           onChange={(e) => setPassword(e.target.value)}
         />
         <TextField
-        label="Confirmă parola"
-        type="password"
-        required
-        fullWidth
-        margin="normal"
-        value={confirmPassword}
-        onChange={(e) => setConfirmPassword(e.target.value)}
+          label="Confirm Password"
+          type="password"
+          required
+          fullWidth
+          margin="normal"
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
         />
 
         <Button type="submit" variant="contained" fullWidth sx={{ mt: 2 }}>
-          Înregistrează-te
+          Register
         </Button>
       </form>
 
       <Typography variant="body2" align="center" sx={{ mt: 2 }}>
-        Ai deja cont?{" "}
+        Already have an account?{" "}
         <Link component={RouterLink} to="/login">
-          Autentifică-te
+          Login
         </Link>
       </Typography>
     </Container>

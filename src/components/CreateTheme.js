@@ -27,13 +27,6 @@ export const darkTheme = createTheme({
         },
       },
     },
-    MuiTypography: {
-      styleOverrides: {
-        root: {
-          color: '#fff',
-        },
-      },
-    },
     MuiTabs: {
       styleOverrides: {
         indicator: {

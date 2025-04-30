@@ -6,10 +6,12 @@ import {
   AppBar,
   Toolbar,
   Typography,
-  Button
+  Button,
+  Box,
 } from '@mui/material';
 import LogoutIcon from '@mui/icons-material/Logout';
 import UserDisplay from './components/UserDisplay';
+import jobTrackerIcon from './assets/job-tracker.png';
 
 import { AuthProvider, AuthContext } from './context/AuthContext';
 import Register from './pages/Register';
@@ -46,10 +48,22 @@ function AppLayout() {
       <CssBaseline />
 
       <AppBar position="static">
-        <Toolbar>
-          <Typography variant="h6" sx={{ flexGrow: 1 }}>
-            JobTracker
-          </Typography>
+        <Toolbar sx={{ paddingRight: '0 !important' }}>
+          <Box sx={{ flexGrow: 1, display: 'flex', flexDirection: 'row-reverse', justifyContent: 'flex-end', gap: 2 }}>
+            <Box sx={{ display: { xs: 'none', md: 'block' } }}>
+              <Typography variant="h6">
+                JobTracker
+              </Typography>
+            </Box>
+            <Box sx={{ height: '32px', borderRadius: '32px', overflow: 'hidden' }}>
+              <img
+                src={jobTrackerIcon}
+                alt="JT"
+                width={32}
+
+              />
+            </Box>
+          </Box>
 
           {user && <UserDisplay username={username} sx={{ mr: 2 }} />}
 
