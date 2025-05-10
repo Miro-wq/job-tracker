@@ -1,4 +1,5 @@
 # 💼 JobTracker
+## More details on how it works, [here](https://deepwiki.com/Miro-wq/job-tracker)
 
 **JobTracker** is a full-stack application designed to help users track their job applications efficiently.  
 From saved to applied, rejected or ghosted – everything stays organized in a clean and visually intuitive interface.
